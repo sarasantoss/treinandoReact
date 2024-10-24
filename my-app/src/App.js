@@ -1,17 +1,34 @@
 import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
 
-const user={
-  id:1,
-  nome: "Elisangela",
-  cpf: 42283916801
-}
+const users=[
+  {id:1, nome: "Elisangela", homem: false},
+  {id:2, nome: "André", homem: false}];
 let content;
-if(user.id === 1){
-  content = <ExibeNome/>
-}else{
-  content = <h1>Erro, usuário não encontrado</h1>
+
+function MyButton(){
+  const [count, setCount] = useState(0)
+
+  function HandleClick(){
+    setCount(count + 1)
+  }
+
+  return(
+    <button onClick={HandleClick}>
+      clicado {count} vezes
+    </button>
+    
+  )
+
+  
 }
+
+const listaUsers = users.map(users =>
+  <li key = {users.id} style = {{color: users.homem ? 'blue': 'red'}}>
+    {users.nome}
+  </li>
+ )
 
 function App() {
   return (
@@ -21,11 +38,10 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
           <div>
-          {user.id ===1? (
-              <ExibeNome/>
-            ) : (
-              <h1>Erro, usuário não encontrado</h1>
-            )}
+            <MyButton/>
+          <ul>
+            {listaUsers}
+          </ul>
           </div>
         </p>
         <a
@@ -44,8 +60,11 @@ function App() {
 function ExibeNome(){
   return(
     <h1>
-      {user.nome}
+      {users.nome}
     </h1>
   )
 }
+
+// Armazenando estados
+
 export default App;
